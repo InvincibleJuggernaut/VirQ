@@ -9,13 +9,13 @@ class Home extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.green[500],
       appBar: AppBar(
-        title: Text('Stores'),
+        title: Text('STORES'),
         backgroundColor: Colors.green[800],
         elevation: 0.0,
         actions: <Widget>[
           FlatButton.icon(
             icon: Icon(Icons.person),
-            label: Text('Logout'),
+            label: Text('SIGN OUT'),
             onPressed: () async {
               await _auth.signOut();
             },
