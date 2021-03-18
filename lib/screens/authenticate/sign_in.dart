@@ -1,5 +1,7 @@
 import 'package:VirQ/services/auth.dart';
+import 'package:VirQ/shared/loading.dart';
 import 'package:flutter/material.dart';
+import 'package:VirQ/shared/constants.dart';
 
 class SignIn extends StatefulWidget {
 
@@ -14,6 +16,7 @@ class _SignInState extends State<SignIn> {
 
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
+  bool loading = false;
 
   String email = '';
   String password = '';
@@ -21,7 +24,7 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? Loading() : Scaffold(
       backgroundColor: Colors.green[900],
       appBar: AppBar(
         backgroundColor: Colors.yellow[900],
@@ -44,6 +47,7 @@ class _SignInState extends State<SignIn> {
           child: Column(
             children: <Widget>[
               TextFormField(
+                decoration: textInputDecoration.copyWith(hintText: 'Email'),
                 validator: (val) => val.isEmpty ? 'Enter an email' : null,
                 onChanged: (val) {
                   setState(() => email = val);
@@ -52,6 +56,7 @@ class _SignInState extends State<SignIn> {
               ),
               SizedBox(height: 20.0),
               TextFormField(
+                decoration: textInputDecoration.copyWith(hintText: 'Password'),
                 validator: (val) => val.length < 6 ? 'Enter a password with atleast 6 characters' : null,
                 obscureText: true,
                 onChanged: (val) {
@@ -70,10 +75,14 @@ class _SignInState extends State<SignIn> {
                 onPressed: () async {
                   if (_formKey.currentState.validate()){
                     
+                    setState(() => loading = true);
                     dynamic result = await _auth.signInWithEmailAndPassword(email, password);
 
                     if(result == null) {
-                      setState(() => error = 'Please provide valid credentials');
+                      setState(() {
+                        error = 'Please provide valid credentials';
+                        loading = false;
+                      });
 
                     }
                   }

@@ -1,4 +1,6 @@
 import 'package:VirQ/services/auth.dart';
+import 'package:VirQ/shared/constants.dart';
+import 'package:VirQ/shared/loading.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
@@ -15,6 +17,7 @@ class _RegisterState extends State<Register> {
 
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
+  bool loading = false;
 
 
   String email = '';
@@ -23,7 +26,7 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? Loading() : Scaffold(
       backgroundColor: Colors.green[900],
       appBar: AppBar(
         backgroundColor: Colors.yellow[900],
@@ -46,6 +49,7 @@ class _RegisterState extends State<Register> {
           child: Column(
             children: <Widget>[
               TextFormField(
+                decoration: textInputDecoration.copyWith(hintText: 'Email'),
                 validator: (val) => val.isEmpty ? 'Enter an email' : null,
                 onChanged: (val) {
                   setState(() => email = val);
@@ -54,6 +58,7 @@ class _RegisterState extends State<Register> {
               ),
               SizedBox(height: 20.0),
               TextFormField(
+                decoration: textInputDecoration.copyWith(hintText: 'Password'),
                 obscureText: true,
                 validator: (val) => val.length < 6 ? 'Enter a password with atleast 6 characters' : null,
                 onChanged: (val) {
@@ -71,10 +76,13 @@ class _RegisterState extends State<Register> {
                 ),
                 onPressed: () async {
                   if (_formKey.currentState.validate()){
+                    setState(() => loading = true);
                     dynamic result = await _auth.registerWithEmailAndPassword(email, password);
                     if(result == null) {
-                      setState(() => error = 'Please provide a valid email');
-
+                      setState(() {
+                        error = 'Please provide a valid email';
+                        loading = false;
+                      });
                     }
                   }
 
