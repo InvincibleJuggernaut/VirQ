@@ -25,23 +25,11 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return loading ? Loading() : Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.green[900],
-      appBar: AppBar(
-        backgroundColor: Colors.yellow[900],
-        elevation: 0.0,
-        title: Text('SIGN IN'),
-        actions: <Widget>[
-          FlatButton.icon(
-            icon: Icon(Icons.person),
-            label: Text('SIGN UP'),
-            onPressed: () {
-              widget.toggleView();
-            }
-          )
-        ]
-      ),
+      
       body: Container(
-        padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+        margin: EdgeInsets.only(left:50, right:50, top:200, bottom: 40),
         child: Form(
           key: _formKey,
           child: Column(
@@ -63,6 +51,11 @@ class _SignInState extends State<SignIn> {
                   setState(() => password = val);
 
                 }
+              ),
+              SizedBox(height: 12.0),
+              Text(
+                error,
+                style: TextStyle(color: Colors.red, fontSize: 14.0),
               ),
 
               SizedBox(height: 20.0),
@@ -89,13 +82,18 @@ class _SignInState extends State<SignIn> {
 
                 }
               ),
-              SizedBox(height: 12.0),
-              Text(
-                error,
-                style: TextStyle(color: Colors.red, fontSize: 14.0),
+              SizedBox(height: 20.0),
+              RaisedButton(
+                color: Colors.green[900],
+                child: Text(
+                  'New here? Sign Up',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  widget.toggleView();
+                }
               ),
               
-
             ],
           )
         )
