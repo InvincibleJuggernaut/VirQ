@@ -1,0 +1,77 @@
+{
+
+  "project_info": {
+
+    "project_number": "385352298478",
+
+    "project_id": "virlin-de8f7",
+
+    "storage_bucket": "virlin-de8f7.appspot.com"
+
+  },
+
+  "client": [
+
+    {
+
+      "client_info": {
+
+        "mobilesdk_app_id": "1:385352298478:android:a737262c19439af4ee68ff",
+
+        "android_client_info": {
+
+          "package_name": "com.example.VirQ"
+
+        }
+
+      },
+
+      "oauth_client": [
+
+        {
+
+          "client_id": "385352298478-v9p2k9mobr21pmsioi1hj0tioe86970h.apps.googleusercontent.com",
+
+          "client_type": 3
+
+        }
+
+      ],
+
+      "api_key": [
+
+        {
+
+          "current_key": "AIzaSyCqynZg-yEUxAL1bFcZUlD0gRr6JqHdH2Y"
+
+        }
+
+      ],
+
+      "services": {
+
+        "appinvite_service": {
+
+          "other_platform_oauth_client": [
+
+            {
+
+              "client_id": "385352298478-v9p2k9mobr21pmsioi1hj0tioe86970h.apps.googleusercontent.com",
+
+              "client_type": 3
+
+            }
+
+          ]
+
+        }
+
+      }
+
+    }
+
+  ],
+
+  "configuration_version": "1"
+
+}
