@@ -1,5 +1,6 @@
 import 'package:VirQ/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'database.dart';
 
 class AuthService {
 
@@ -41,6 +42,8 @@ class AuthService {
     try {
       AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       FirebaseUser user = result.user;
+
+      await DatabaseService(uid: user.uid).updateUserData('abc',0,0);
       return _userFromFirebaseUser(user);
     } catch(e) {
       print(e.toString());
