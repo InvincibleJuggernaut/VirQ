@@ -15,7 +15,7 @@ class _PlaceListState extends State<PlaceList> {
     final places = Provider.of<List<Place>>(context);
 
     return ListView.builder(
-      itemCount: places.length,
+      itemCount: places?.length ?? 0,
       itemBuilder: (context, index) {
         return PlaceTile(place: places[index]);
 
