@@ -18,7 +18,6 @@ class _PlaceListState extends State<PlaceList> {
       itemCount: places?.length ?? 0,
       itemBuilder: (context, index) {
         return PlaceTile(place: places[index]);
-
       },
       
     );
