@@ -1,3 +1,4 @@
+import 'package:VirQ/screens/home/queue_details_form.dart';
 import 'package:VirQ/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:VirQ/services/database.dart';
@@ -26,15 +27,6 @@ class SideDrawer extends StatelessWidget {
   final AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
-
-    void showQueueDetailsPanel() {
-      showModalBottomSheet(context: context, builder: (context) {
-        return Container(
-          padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
-          child: Text('Queue Details'),
-        );
-      });
-    }
     return Drawer(
       child: Column(
         children: <Widget>[
@@ -52,11 +44,6 @@ class SideDrawer extends StatelessWidget {
               await _auth.signOut();
             },
           ),
-          FlatButton.icon(
-            icon: Icon(Icons.settings),
-            label: Text('Join'),
-            onPressed: () => showQueueDetailsPanel(),
-          )
         ],
       ),
     );

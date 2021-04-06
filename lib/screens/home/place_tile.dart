@@ -1,3 +1,4 @@
+import 'package:VirQ/screens/home/queue_details_form.dart';
 import 'package:flutter/material.dart';
 import 'package:VirQ/models/place.dart';
 
@@ -9,6 +10,14 @@ class PlaceTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void showQueueDetailsPanel() {
+      showModalBottomSheet(context: context, builder: (context) {
+        return Container(
+          padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
+          child: QueueDetails(),
+        );
+      });
+    }
     return Padding(
       padding: EdgeInsets.only(top: 8.0),
       child: Card(
@@ -20,6 +29,11 @@ class PlaceTile extends StatelessWidget {
           ),
             title: Text(place.name),
             subtitle: Text(place.totalPeople.toString()),
+            trailing: FlatButton.icon(
+              icon: Icon(Icons.add_box_rounded),
+              label: Text('Join'),
+              onPressed: () => showQueueDetailsPanel(),
+            )
           ),
         )
     );
