@@ -23,12 +23,20 @@ class PlaceTile extends StatelessWidget {
       child: Card(
         margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
         child: ListTile(
+          isThreeLine: true,
           leading: CircleAvatar(
             radius: 25.0,
             backgroundColor: Colors.white,
           ),
             title: Text(place.name),
-            subtitle: Text(place.totalPeople.toString()),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(place.totalPeople.toString()),
+                Text(place.tokenAvailable.toString()),
+              ],
+            ),
+            
             trailing: FlatButton.icon(
               icon: Icon(Icons.add_box_rounded),
               label: Text('Join'),

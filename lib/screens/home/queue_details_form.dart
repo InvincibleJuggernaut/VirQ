@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-
-import 'package:flutter/material.dart';
 import 'package:VirQ/shared/constants.dart';
+import 'package:VirQ/screens/home/place_tile.dart';
+
 
 class QueueDetails extends StatefulWidget {
   @override
@@ -30,11 +30,18 @@ class _QueueDetailsState extends State<QueueDetails> {
           ),
           SizedBox(height: 20.0),
           RaisedButton(
-            color: Colors.orange,
+            color: Colors.orange[500],
             child: Text(
               'Update',
               style: TextStyle(color: Colors.green),
             ),
+            onPressed: () async {
+              print(_name);
+              print(_tokenAvailable);
+              print(_totalPeople);
+
+              }
+        
           )
         ],
       ),
