@@ -6,7 +6,7 @@ class DatabaseService {
   final String uid;
   DatabaseService({ this.uid });
   final CollectionReference placesCollection = Firestore.instance.collection('places');
-  
+
   Future updatePlaceData(String name, int tokenAvailable, int totalPeople) async {
     return await placesCollection.document(uid).setData({
       'name': name,

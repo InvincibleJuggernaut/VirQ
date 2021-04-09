@@ -1,3 +1,4 @@
+import 'package:VirQ/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:VirQ/shared/constants.dart';
 import 'package:VirQ/screens/home/place_tile.dart';
@@ -13,9 +14,9 @@ class _QueueDetailsState extends State<QueueDetails> {
   final _formKey = GlobalKey<FormState>();
   final List<String> people = ['Join', 'Leave'];
 
-  String _name;
-  String _tokenAvailable;
-  String _totalPeople;
+  String name;
+  int tokenAvailable;
+  int totalPeople;
  
 
   @override
@@ -36,9 +37,7 @@ class _QueueDetailsState extends State<QueueDetails> {
               style: TextStyle(color: Colors.green),
             ),
             onPressed: () async {
-              print(_name);
-              print(_tokenAvailable);
-              print(_totalPeople);
+              await DatabaseService().updatePlaceData(name, tokenAvailable, totalPeople);
 
               }
         

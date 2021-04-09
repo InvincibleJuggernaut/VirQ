@@ -1,4 +1,6 @@
 import 'package:VirQ/screens/home/queue_details_form.dart';
+import 'package:VirQ/services/database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:VirQ/models/place.dart';
 
@@ -7,6 +9,30 @@ class PlaceTile extends StatelessWidget {
   
   final Place place;
   PlaceTile({ this.place });
+
+  getData(name) {
+    DatabaseService().placesCollection.getDocuments().then((QuerySnapshot snapshot) {
+      snapshot.documents.forEach((DocumentSnapshot doc) {
+        if(doc.data['name']==name)
+        {
+          print(doc.data['name']);
+          print(doc.data['tokenAvailable']);
+          print(doc.data['totalPeople']);
+          print(doc.documentID);
+        }
+      });
+    });
+  }
+
+  getUserById(String id) {
+    
+    DatabaseService().placesCollection.document(id).get().then((DocumentSnapshot doc) {
+      print(doc.data);
+  
+    });
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +66,10 @@ class PlaceTile extends StatelessWidget {
             trailing: FlatButton.icon(
               icon: Icon(Icons.add_box_rounded),
               label: Text('Join'),
-              onPressed: () => showQueueDetailsPanel(),
+              onPressed: () async {
+                showQueueDetailsPanel();
+                getData(place.name);
+              },
             )
           ),
         )
