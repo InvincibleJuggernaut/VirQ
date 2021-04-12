@@ -1,4 +1,3 @@
-import 'package:VirQ/screens/home/queue_details_form.dart';
 import 'package:VirQ/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:VirQ/services/database.dart';

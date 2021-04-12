@@ -25,8 +25,23 @@ class DatabaseService {
     }).toList();
   }
 
+
+  PlaceData _placeDataFromSnapshot(DocumentSnapshot snapshot){
+    return PlaceData(
+      uid: uid,
+      name: snapshot.data['name'],
+      tokenAvailable: snapshot.data['tokenAvailable'],
+      totalPeople: snapshot.data['totalPeople'],
+    );
+  }
+
   Stream<List<Place>> get places {
     return placesCollection.snapshots()
       .map(_placeListFromSnapshot);
+  }
+
+  Stream<PlaceData> get placeData {
+    return placesCollection.document(uid).snapshots()
+    .map(_placeDataFromSnapshot);
   }
 }

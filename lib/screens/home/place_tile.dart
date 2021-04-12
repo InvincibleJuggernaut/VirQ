@@ -4,25 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:VirQ/models/place.dart';
 
-
+//ignore: must_be_immutable
 class PlaceTile extends StatelessWidget {
   
   final Place place;
   PlaceTile({ this.place });
-
-  getData(name) {
-    DatabaseService().placesCollection.getDocuments().then((QuerySnapshot snapshot) {
-      snapshot.documents.forEach((DocumentSnapshot doc) {
-        if(doc.data['name']==name)
-        {
-          print(doc.data['name']);
-          print(doc.data['tokenAvailable']);
-          print(doc.data['totalPeople']);
-          print(doc.documentID);
-        }
-      });
-    });
-  }
 
   getUserById(String id) {
     
@@ -33,6 +19,8 @@ class PlaceTile extends StatelessWidget {
 
   }
 
+  String value;
+
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +28,7 @@ class PlaceTile extends StatelessWidget {
       showModalBottomSheet(context: context, builder: (context) {
         return Container(
           padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
-          child: QueueDetails(),
+          child: QueueDetails(value: place.name),
         );
       });
     }
@@ -68,7 +56,14 @@ class PlaceTile extends StatelessWidget {
               label: Text('Join'),
               onPressed: () async {
                 showQueueDetailsPanel();
-                getData(place.name);
+                /*Navigator.push(
+                  context, 
+                  new MaterialPageRoute(
+                    builder: (context) {
+                      return QueueDetails(value: place.name);
+                    }
+                  )
+                );*/
               },
             )
           ),
