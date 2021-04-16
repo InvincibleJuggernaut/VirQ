@@ -1,5 +1,6 @@
 import 'package:VirQ/services/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 
@@ -24,25 +25,52 @@ class _QueueDetailsState extends State<QueueDetails> {
   int tokenAvailable;
   int totalPeople;
 
-    updateData(name) {
+  String place;
+  int tokenUser;  
+
+  updateData(name) {
     DatabaseService().placesCollection.getDocuments().then((QuerySnapshot snapshot) {
       snapshot.documents.forEach((DocumentSnapshot doc) {
         if(doc.data['name']==name)
         {
-          //print(doc.data['name']);
-          //print(doc.data['tokenAvailable']);
-          //print(doc.data['totalPeople']);
-          //print(doc.documentID);
+          place = doc.data['name'];
+          tokenUser = doc.data['tokenAvailable'];
+
           Firestore.instance.collection('places').document(doc.documentID).updateData({
                   "tokenAvailable": FieldValue.increment(1),
                   "totalPeople": FieldValue.increment(1),
                 }).then((result){
-                  print("Data updated");
+                  print("Place data updated");
                 }).catchError((onError){
                   print("Received an error");
                 });
         }
       });
+    });
+  }
+
+  updateUserData() async {
+    
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    
+    final FirebaseUser user  = await auth.currentUser();
+    String uid = user.uid;
+
+    UserDatabaseService().userCollection.getDocuments().then((QuerySnapshot snapshot) {
+      snapshot.documents.forEach((DocumentSnapshot doc) {
+        if(doc.documentID == uid)
+        {
+          Firestore.instance.collection('users').document(doc.documentID).updateData({
+            "status": "true",
+            "queueAt": place,
+            "token": tokenUser,
+          }).then((result) {
+            print("User data updated");
+          }).catchError((onError){
+            print("Received an error");
+          });
+        }
+        });
     });
   }
 
@@ -65,6 +93,7 @@ class _QueueDetailsState extends State<QueueDetails> {
             ),
             onPressed: () async {
               updateData(value);
+              updateUserData();
               }
         
           )
