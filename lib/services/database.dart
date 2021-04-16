@@ -45,3 +45,21 @@ class DatabaseService {
     .map(_placeDataFromSnapshot);
   }
 }
+
+class UserDatabaseService {
+  
+  final String uid;
+  UserDatabaseService({ this.uid });
+
+  final CollectionReference userCollection = Firestore.instance.collection('users');
+
+  Future updateUserData(String email, String status, String queueAt, int token) async {
+
+    return await userCollection.document(uid).setData({
+      'email': email,
+      'status': status,
+      'queueAt': queueAt,
+      'token': token,
+    });
+  }
+}

@@ -53,14 +53,14 @@ class _QueueDetailsState extends State<QueueDetails> {
       child: Column(
         children: <Widget>[
           Text(
-            'Join queue',
+            'Queue',
             style: TextStyle(fontSize: 18.0),
           ),
           SizedBox(height: 20.0),
           RaisedButton(
             color: Colors.orange[500],
             child: Text(
-              'Update',
+              'Joing Queue',
               style: TextStyle(color: Colors.green),
             ),
             onPressed: () async {
