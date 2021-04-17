@@ -37,12 +37,17 @@ class SideDrawer extends StatelessWidget {
             ),
             ),
             ListTile(
+            leading: Icon(Icons.account_balance_wallet_rounded),
+            title: Text('Tickets'),
+            ),
+            ListTile(
             leading: Icon(Icons.exit_to_app),
             title: Text('Sign Out'),
             onTap: () async {
               await _auth.signOut();
             },
           ),
+          
         ],
       ),
     );

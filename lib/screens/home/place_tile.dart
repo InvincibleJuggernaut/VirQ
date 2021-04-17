@@ -21,7 +21,6 @@ class PlaceTile extends StatelessWidget {
 
   String value;
 
-
   @override
   Widget build(BuildContext context) {
     void showQueueDetailsPanel() {
@@ -46,8 +45,9 @@ class PlaceTile extends StatelessWidget {
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(place.totalPeople.toString()),
-                Text(place.tokenAvailable.toString()),
+                //Text("People   "+place.totalPeople.toString()),
+                Text(""),
+                Text("Token    "+place.tokenAvailable.toString()),
               ],
             ),
             

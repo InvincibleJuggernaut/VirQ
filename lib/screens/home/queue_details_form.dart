@@ -26,7 +26,7 @@ class _QueueDetailsState extends State<QueueDetails> {
   int totalPeople;
 
   String place;
-  int tokenUser;  
+  int tokenUser;
 
   updateData(name) {
     DatabaseService().placesCollection.getDocuments().then((QuerySnapshot snapshot) {
@@ -47,6 +47,23 @@ class _QueueDetailsState extends State<QueueDetails> {
         }
       });
     });
+  }
+
+  String placeName;
+  int placeToken;
+
+  searchPlaceData() {
+    DatabaseService().placesCollection.getDocuments().then((QuerySnapshot snapshot) {
+      snapshot.documents.forEach((DocumentSnapshot doc) {
+        if(doc.data['name']==name)
+        {
+          placeName = doc.data['name'];
+          placeToken = doc.data['tokenAvailable'];
+        }
+      }
+      );
+    }
+    );
   }
 
   updateUserData() async {
@@ -74,6 +91,8 @@ class _QueueDetailsState extends State<QueueDetails> {
     });
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -81,14 +100,15 @@ class _QueueDetailsState extends State<QueueDetails> {
       child: Column(
         children: <Widget>[
           Text(
-            'Queue',
+            value,
             style: TextStyle(fontSize: 18.0),
           ),
+          
           SizedBox(height: 20.0),
           RaisedButton(
             color: Colors.orange[500],
             child: Text(
-              'Joing Queue',
+              'Join Queue',
               style: TextStyle(color: Colors.green),
             ),
             onPressed: () async {
