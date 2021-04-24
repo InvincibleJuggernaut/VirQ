@@ -81,6 +81,7 @@ class _QueueDetailsState extends State<QueueDetails> {
             "status": "true",
             "queueAt": place,
             "token": tokenUser,
+            "time": DateTime.now().toString(),
           }).then((result) {
             print("User data updated");
           }).catchError((onError){
