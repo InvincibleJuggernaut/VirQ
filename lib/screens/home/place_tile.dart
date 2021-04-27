@@ -45,7 +45,6 @@ class PlaceTile extends StatelessWidget {
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                //Text("People   "+place.totalPeople.toString()),
                 Text(""),
                 Text("Token    "+place.tokenAvailable.toString()),
               ],
@@ -56,14 +55,6 @@ class PlaceTile extends StatelessWidget {
               label: Text('Join'),
               onPressed: () async {
                 showQueueDetailsPanel();
-                /*Navigator.push(
-                  context, 
-                  new MaterialPageRoute(
-                    builder: (context) {
-                      return QueueDetails(value: place.name);
-                    }
-                  )
-                );*/
               },
             )
           ),

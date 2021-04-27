@@ -35,6 +35,7 @@ dependencies:
   flutter_spinkit: ^4.0.0
   ticket_pass_package: ^0.1.0
   intl: ^0.16.1
+  rflutter_alert: ^1.0.2
 
 dev_dependencies:
   flutter_test:

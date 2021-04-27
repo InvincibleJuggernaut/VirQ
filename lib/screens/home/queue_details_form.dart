@@ -2,6 +2,7 @@ import 'package:VirQ/services/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 
 //ignore: must_be_immutable
@@ -28,15 +29,16 @@ class _QueueDetailsState extends State<QueueDetails> {
   String place;
   int tokenUser;
 
-  updateData(name) {
+  updatePlaceData(name) {
+    
     DatabaseService().placesCollection.getDocuments().then((QuerySnapshot snapshot) {
-      snapshot.documents.forEach((DocumentSnapshot doc) {
-        if(doc.data['name']==name)
+      snapshot.documents.forEach((DocumentSnapshot docu) {
+        if(docu.data['name']==name)
         {
-          place = doc.data['name'];
-          tokenUser = doc.data['tokenAvailable'];
+          place = docu.data['name'];
+          tokenUser = docu.data['tokenAvailable'];
 
-          Firestore.instance.collection('places').document(doc.documentID).updateData({
+          Firestore.instance.collection('places').document(docu.documentID).updateData({
                   "tokenAvailable": FieldValue.increment(1),
                   "totalPeople": FieldValue.increment(1),
                 }).then((result){
@@ -67,7 +69,6 @@ class _QueueDetailsState extends State<QueueDetails> {
   }
 
   updateUserData() async {
-    
     final FirebaseAuth auth = FirebaseAuth.instance;
     
     final FirebaseUser user  = await auth.currentUser();
@@ -75,8 +76,12 @@ class _QueueDetailsState extends State<QueueDetails> {
 
     UserDatabaseService().userCollection.getDocuments().then((QuerySnapshot snapshot) {
       snapshot.documents.forEach((DocumentSnapshot doc) {
-        if(doc.documentID == uid)
+        if(doc.documentID == uid && doc.data['status']=='false')
         {
+          updatePlaceData(value);
+          UserDatabaseService().userCollection.getDocuments().then((QuerySnapshot snapshot) {
+            snapshot.documents.forEach((DocumentSnapshot doc) {
+    
           Firestore.instance.collection('users').document(doc.documentID).updateData({
             "status": "true",
             "queueAt": place,
@@ -87,6 +92,27 @@ class _QueueDetailsState extends State<QueueDetails> {
           }).catchError((onError){
             print("Received an error");
           });
+            });
+          });
+
+        }
+        else
+        {
+          print("Already present in some other queue");
+          Alert(context: context,
+          type: AlertType.info,
+          title: 'Message', 
+          desc: "You are already enrolled in a queue",
+          buttons : [
+            DialogButton(
+              color: Colors.orange,
+              child: Text(
+                "OK",
+                style: TextStyle(color: Colors.green),
+              ),
+              onPressed: () => Navigator.pop(context),
+            )
+          ]).show();
         }
         });
     });
@@ -113,8 +139,8 @@ class _QueueDetailsState extends State<QueueDetails> {
               style: TextStyle(color: Colors.green),
             ),
             onPressed: () async {
-              updateData(value);
-              updateUserData();
+              //updateData(value);
+                updateUserData();
               }
         
           )
