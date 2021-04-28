@@ -1,3 +1,4 @@
+import 'package:VirQ/models/place.dart';
 import 'package:VirQ/services/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,7 +9,7 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 //ignore: must_be_immutable
 class QueueDetails extends StatefulWidget {
 
-  String value;
+  final Place value;
   QueueDetails({this.value});
   
   @override
@@ -17,7 +18,7 @@ class QueueDetails extends StatefulWidget {
 
 class _QueueDetailsState extends State<QueueDetails> {
   
-  String value;
+  Place value;
   _QueueDetailsState(this.value);
   final _formKey = GlobalKey<FormState>();
   final List<String> people = ['Join', 'Leave'];
@@ -28,7 +29,7 @@ class _QueueDetailsState extends State<QueueDetails> {
 
   String place;
   int tokenUser;
-
+  
   updatePlaceData(name) {
     
     DatabaseService().placesCollection.getDocuments().then((QuerySnapshot snapshot) {
@@ -54,7 +55,7 @@ class _QueueDetailsState extends State<QueueDetails> {
   String placeName;
   int placeToken;
 
-  searchPlaceData() {
+  searchPlaceData(name) {
     DatabaseService().placesCollection.getDocuments().then((QuerySnapshot snapshot) {
       snapshot.documents.forEach((DocumentSnapshot doc) {
         if(doc.data['name']==name)
@@ -127,20 +128,34 @@ class _QueueDetailsState extends State<QueueDetails> {
       child: Column(
         children: <Widget>[
           Text(
-            value,
-            style: TextStyle(fontSize: 18.0),
+            value.name,
+            style: TextStyle(fontSize: 25.0),
           ),
-          
+          Text(
+            '',
+          ),
+          Text(
+            value.address,
+            style: TextStyle(fontSize: 15.0),
+          ),
+          Text(
+            '',
+          ),
+                    Text(
+            "Token : "+value.tokenAvailable.toString(),
+            style: TextStyle(fontSize: 15.0),
+          ),
           SizedBox(height: 20.0),
           RaisedButton(
             color: Colors.orange[500],
             child: Text(
               'Join Queue',
-              style: TextStyle(color: Colors.green),
+              style: TextStyle(color: Colors.white),
             ),
             onPressed: () async {
               //updateData(value);
                 updateUserData();
+
               }
         
           )

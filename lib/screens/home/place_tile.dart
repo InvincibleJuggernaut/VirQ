@@ -19,15 +19,15 @@ class PlaceTile extends StatelessWidget {
 
   }
 
-  String value;
+  Place value;
 
   @override
   Widget build(BuildContext context) {
     void showQueueDetailsPanel() {
       showModalBottomSheet(context: context, builder: (context) {
         return Container(
-          padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
-          child: QueueDetails(value: place.name),
+          padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 40.0),
+          child: QueueDetails(value: place),
         );
       });
     }
@@ -52,7 +52,7 @@ class PlaceTile extends StatelessWidget {
             
             trailing: FlatButton.icon(
               icon: Icon(Icons.add_box_rounded),
-              label: Text('Join'),
+              label: Text('View'),
               onPressed: () async {
                 showQueueDetailsPanel();
               },
