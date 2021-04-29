@@ -79,7 +79,7 @@ class _QueueDetailsState extends State<QueueDetails> {
       snapshot.documents.forEach((DocumentSnapshot doc) {
         if(doc.documentID == uid && doc.data['status']=='false')
         {
-          updatePlaceData(value);
+          updatePlaceData(value.name);
           UserDatabaseService().userCollection.getDocuments().then((QuerySnapshot snapshot) {
             snapshot.documents.forEach((DocumentSnapshot doc) {
     
@@ -118,9 +118,6 @@ class _QueueDetailsState extends State<QueueDetails> {
         });
     });
   }
-
-
-
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -162,6 +159,24 @@ class _QueueDetailsState extends State<QueueDetails> {
         ],
       ),
       
+    );
+  }
+}
+
+// ignore: must_be_immutable
+class NewScreen extends StatelessWidget {
+  String payload;
+
+  NewScreen({
+    @required this.payload,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(payload),
+      ),
     );
   }
 }
