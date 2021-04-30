@@ -38,6 +38,7 @@ class _RegisterState extends State<Register> {
             children: <Widget>[
               TextFormField(
                 decoration: textInputDecoration.copyWith(hintText: 'Email'),
+                style: TextStyle(color: Colors.white),
                 validator: (val) => val.isEmpty ? 'Enter an email' : null,
                 onChanged: (val) {
                   setState(() => email = val);
@@ -47,6 +48,7 @@ class _RegisterState extends State<Register> {
               SizedBox(height: 20.0),
               TextFormField(
                 decoration: textInputDecoration.copyWith(hintText: 'Password'),
+                style: TextStyle(color: Colors.white),
                 obscureText: true,
                 validator: (val) => val.length < 6 ? 'Enter a password with atleast 6 characters' : null,
                 onChanged: (val) {

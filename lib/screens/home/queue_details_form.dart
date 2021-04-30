@@ -3,6 +3,7 @@ import 'package:VirQ/services/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 
@@ -47,6 +48,7 @@ class _QueueDetailsState extends State<QueueDetails> {
                 }).catchError((onError){
                   print("Received an error");
                 });
+              _showNotification(place, tokenUser);
         }
       });
     });
@@ -118,6 +120,30 @@ class _QueueDetailsState extends State<QueueDetails> {
         });
     });
   }
+
+  FlutterLocalNotificationsPlugin localNotification;
+
+  @override
+  void initState() {
+    super.initState();
+    var androidInitialize = new AndroidInitializationSettings("ic_launcher"); 
+    var iOSInitialize = new IOSInitializationSettings();
+    var initializationSettings = new InitializationSettings(android: androidInitialize, iOS: iOSInitialize);
+
+    localNotification = new FlutterLocalNotificationsPlugin();
+    localNotification.initialize(initializationSettings);
+  }
+
+  Future _showNotification(placeName, tokenNumber) async {
+    var androidDetails = new AndroidNotificationDetails("channelId", "Local Notification", "channelDescription", importance: Importance.high);
+    var iosDetails = new IOSNotificationDetails();
+    var generalNotificationDetails = new NotificationDetails(android: androidDetails, iOS: iosDetails);
+
+    await localNotification.show(0, "Joined queue at "+placeName, "Token : "+tokenNumber.toString(), generalNotificationDetails);
+
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -151,8 +177,7 @@ class _QueueDetailsState extends State<QueueDetails> {
             ),
             onPressed: () async {
               //updateData(value);
-                updateUserData();
-
+                updateUserData();             
               }
         
           )
