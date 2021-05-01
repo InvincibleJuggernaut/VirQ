@@ -1,7 +1,12 @@
 class User {
 
   final String uid;
-
-  User({ this.uid });
+  final String email;
+  final String status;
+  final String queueAt;
+  final int token;
+  final String time;
+  
+  User({ this.uid, this.email, this.status, this.queueAt, this.token, this.time });
 
 }

@@ -85,23 +85,23 @@ class _QueueDetailsState extends State<QueueDetails> {
           UserDatabaseService().userCollection.getDocuments().then((QuerySnapshot snapshot) {
             snapshot.documents.forEach((DocumentSnapshot doc) {
     
-          Firestore.instance.collection('users').document(doc.documentID).updateData({
+          Firestore.instance.collection('users').document(uid).updateData({
             "status": "true",
             "queueAt": place,
             "token": tokenUser,
             "time": DateTime.now().toString(),
           }).then((result) {
-            print("User data updated");
+            print(doc.data['email']+" data updated");
           }).catchError((onError){
-            print("Received an error");
+            print(doc.data['email']+" : Received an error");
           });
             });
           });
 
         }
-        else
+        else if(doc.documentID == uid && doc.data['status']=='true')
         {
-          print("Already present in some other queue");
+          print(doc.data['email']+" already present in some other queue");
           Alert(context: context,
           type: AlertType.info,
           title: 'Message', 

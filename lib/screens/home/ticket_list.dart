@@ -64,9 +64,6 @@ class _TicketListState extends State<TicketList> {
     });
     
   }
-      
-
-
 
   String value;
   _TicketListState(this.value);
