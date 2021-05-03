@@ -120,7 +120,7 @@ class _QueueDetailsState extends State<QueueDetails> {
         });
     });
   }
-
+  
   FlutterLocalNotificationsPlugin localNotification;
 
   @override

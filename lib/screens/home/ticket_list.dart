@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:ticket_pass_package/ticket_pass.dart';
 
 //ignore: must_be_immutable
@@ -22,6 +23,7 @@ class _TicketListState extends State<TicketList> {
   updateUserData() async {
 
     String place;
+    int userDeleted;
     
     final FirebaseAuth auth = FirebaseAuth.instance;
     
@@ -33,6 +35,7 @@ class _TicketListState extends State<TicketList> {
         if(doc.documentID == uid)
         {
           place = doc.data['queueAt'];
+          userDeleted = doc.data['token'];
           //print(place);
           Firestore.instance.collection('users').document(doc.documentID).updateData({
             "status": 'false',
@@ -59,12 +62,55 @@ class _TicketListState extends State<TicketList> {
         }
       });
     });
+    updateQueue(uid, place, userDeleted);
         }
         });
     });
     
   }
 
+  updateQueue(uid, place, deleted) {
+    UserDatabaseService().userCollection.getDocuments().then((QuerySnapshot snapshot) {
+      snapshot.documents.forEach((DocumentSnapshot doc) {
+        if(doc.documentID != uid && doc.data['queueAt']==place && doc.data['token'] > deleted)
+        {
+          //print(place);
+          Firestore.instance.collection('users').document(doc.documentID).updateData({
+            "token": FieldValue.increment(-1),
+          }).then((result) {
+            print(doc.data['email']+" : data updated");
+          }).catchError((onError){
+            print("Received an error");
+        });
+        }
+      });
+    });
+
+  }
+
+
+  FlutterLocalNotificationsPlugin localNotification;
+
+  @override
+  void initState() {
+    super.initState();
+    var androidInitialize = new AndroidInitializationSettings("ic_launcher"); 
+    var iOSInitialize = new IOSInitializationSettings();
+    var initializationSettings = new InitializationSettings(android: androidInitialize, iOS: iOSInitialize);
+
+    localNotification = new FlutterLocalNotificationsPlugin();
+    localNotification.initialize(initializationSettings);
+  }
+
+  Future _showNotification(placeName, tokenNumber) async {
+    var androidDetails = new AndroidNotificationDetails("channelId", "Local Notification", "channelDescription", importance: Importance.high, onlyAlertOnce: true);
+    var iosDetails = new IOSNotificationDetails();
+    var generalNotificationDetails = new NotificationDetails(android: androidDetails, iOS: iosDetails);
+
+    await localNotification.show(0, "Joined queue at "+placeName, "Token : "+tokenNumber.toString(), generalNotificationDetails);
+
+  }
+  
   String value;
   _TicketListState(this.value);
   Widget build(BuildContext context) {
@@ -85,6 +131,7 @@ class _TicketListState extends State<TicketList> {
         builder: (context, snapshot) {
           if(snapshot.data['status']=='false')
           {
+            localNotification.cancel(0);
             return Container(
               margin: EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
               child: Center(
@@ -101,6 +148,7 @@ class _TicketListState extends State<TicketList> {
           }
           else
           {
+          _showNotification(snapshot.data['queueAt'], snapshot.data['token']);  
           return TicketPass(
               alignment: Alignment.center,
               animationDuration: Duration(seconds: 1),
