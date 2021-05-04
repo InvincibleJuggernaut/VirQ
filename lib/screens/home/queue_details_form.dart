@@ -1,4 +1,5 @@
 import 'package:VirQ/models/place.dart';
+import 'package:VirQ/screens/home/qr_scan.dart';
 import 'package:VirQ/services/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -143,7 +144,14 @@ class _QueueDetailsState extends State<QueueDetails> {
 
   }
 
-
+  Future<void> qrCodeScanner(BuildContext context) async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => QRScan(),
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -164,7 +172,7 @@ class _QueueDetailsState extends State<QueueDetails> {
           Text(
             '',
           ),
-                    Text(
+          Text(
             "Token : "+value.tokenAvailable.toString(),
             style: TextStyle(fontSize: 15.0),
           ),
@@ -180,7 +188,7 @@ class _QueueDetailsState extends State<QueueDetails> {
                 updateUserData();             
               }
         
-          )
+          ),
         ],
       ),
       
