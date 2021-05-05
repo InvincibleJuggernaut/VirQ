@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 
 //ignore: must_be_immutable
@@ -106,20 +106,12 @@ class _QueueDetailsState extends State<QueueDetails> {
         else if(doc.documentID == uid && doc.data['status']=='true')
         {
           print(doc.data['email']+" already present in some other queue");
-          Alert(context: context,
-          type: AlertType.info,
-          title: 'Message', 
-          desc: "You are already enrolled in a queue",
-          buttons : [
-            DialogButton(
-              color: Colors.orange,
-              child: Text(
-                "OK",
-                style: TextStyle(color: Colors.green),
-              ),
-              onPressed: () => Navigator.pop(context),
-            )
-          ]).show();
+          Navigator.pop(context);
+          Fluttertoast.showToast(
+            msg: "You are already enrolled in a queue",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+          );
         }
         });
     });

@@ -8,10 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:VirQ/services/database.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:VirQ/models/place.dart';
 import 'package:VirQ/screens/home/place_list.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 
 //ignore: must_be_immutable
 class Home extends StatelessWidget {
@@ -75,21 +75,11 @@ class Home extends StatelessWidget {
         }
         else if(doc.documentID == uid && doc.data['status']=='true')
         {
-          print(doc.data['email']+" already present in some other queue");
-          Alert(context: null,
-          type: AlertType.info,
-          title: 'Message', 
-          desc: "You are already enrolled in a queue",
-          buttons : [
-            DialogButton(
-              color: Colors.orange,
-              child: Text(
-                "OK",
-                style: TextStyle(color: Colors.green),
-              ),
-              onPressed: () => Navigator.pop(null),
-            )
-          ]).show();
+        Fluttertoast.showToast(
+        msg: "You are already enrolled in a queue",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        );
         }
         });
     });
