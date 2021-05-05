@@ -31,6 +31,7 @@ class _QueueDetailsState extends State<QueueDetails> {
 
   String place;
   int tokenUser;
+  int time;
   
   updatePlaceData(name) {
     
@@ -40,6 +41,7 @@ class _QueueDetailsState extends State<QueueDetails> {
         {
           place = docu.data['name'];
           tokenUser = docu.data['tokenAvailable'];
+          time = docu.data['time'];
 
           Firestore.instance.collection('places').document(docu.documentID).updateData({
                   "tokenAvailable": FieldValue.increment(1),
@@ -49,7 +51,7 @@ class _QueueDetailsState extends State<QueueDetails> {
                 }).catchError((onError){
                   print("Received an error");
                 });
-              _showNotification(place, tokenUser);
+                  _showNotification(place, tokenUser, (tokenUser-1)*time);        
         }
       });
     });
@@ -91,6 +93,7 @@ class _QueueDetailsState extends State<QueueDetails> {
             "queueAt": place,
             "token": tokenUser,
             "time": DateTime.now().toString(),
+            "eta": (tokenUser-1)*time,
           }).then((result) {
             print(doc.data['email']+" data updated");
           }).catchError((onError){
@@ -135,12 +138,12 @@ class _QueueDetailsState extends State<QueueDetails> {
     localNotification.initialize(initializationSettings);
   }
 
-  Future _showNotification(placeName, tokenNumber) async {
+  Future _showNotification(placeName, tokenNumber, eta) async {
     var androidDetails = new AndroidNotificationDetails("channelId", "Local Notification", "channelDescription", importance: Importance.high);
     var iosDetails = new IOSNotificationDetails();
     var generalNotificationDetails = new NotificationDetails(android: androidDetails, iOS: iosDetails);
 
-    await localNotification.show(0, "Joined queue at "+placeName, "Token : "+tokenNumber.toString(), generalNotificationDetails);
+    await localNotification.show(0, "Joined queue at "+placeName, "Token : "+tokenNumber.toString() + "  |  ETA : "+eta.toString()+" min", generalNotificationDetails);
 
   }
 

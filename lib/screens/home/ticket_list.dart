@@ -102,12 +102,12 @@ class _TicketListState extends State<TicketList> {
     localNotification.initialize(initializationSettings);
   }
 
-  Future _showNotification(placeName, tokenNumber) async {
+  Future _showNotification(placeName, tokenNumber, eta) async {
     var androidDetails = new AndroidNotificationDetails("channelId", "Local Notification", "channelDescription", importance: Importance.high, onlyAlertOnce: true);
     var iosDetails = new IOSNotificationDetails();
     var generalNotificationDetails = new NotificationDetails(android: androidDetails, iOS: iosDetails);
 
-    await localNotification.show(0, "Joined queue at "+placeName, "Token : "+tokenNumber.toString(), generalNotificationDetails);
+    await localNotification.show(0, "Joined queue at "+placeName, "Token : "+tokenNumber.toString() + "  |  ETA : "+eta.toString()+" min", generalNotificationDetails);
 
   }
   
@@ -148,7 +148,7 @@ class _TicketListState extends State<TicketList> {
           }
           else
           {
-          _showNotification(snapshot.data['queueAt'], snapshot.data['token']);  
+          _showNotification(snapshot.data['queueAt'], snapshot.data['token'], snapshot.data['eta']);  
           return TicketPass(
               alignment: Alignment.center,
               animationDuration: Duration(seconds: 1),
@@ -227,7 +227,7 @@ class _TicketListState extends State<TicketList> {
                                                 Colors.black.withOpacity(0.5)),
                                       ),
                                       Text(
-                                        '12:00 PM',
+                                        snapshot.data['eta'].toString()+" min",
                                         style: TextStyle(
                                             fontWeight: FontWeight.w600),
                                       ),

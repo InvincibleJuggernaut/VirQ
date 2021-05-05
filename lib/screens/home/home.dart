@@ -19,6 +19,7 @@ class Home extends StatelessWidget {
 
   String place;
   int tokenUser;
+  int time;
 
   updatePlaceData(name) {
     
@@ -28,6 +29,7 @@ class Home extends StatelessWidget {
         {
           place = docu.data['name'];
           tokenUser = docu.data['tokenAvailable'];
+          time = docu.data['time'];
 
           Firestore.instance.collection('places').document(name).updateData({
                   "tokenAvailable": FieldValue.increment(1),
@@ -37,7 +39,7 @@ class Home extends StatelessWidget {
                 }).catchError((onError){
                   print("Received an error");
                 });
-              _showNotification(place, tokenUser);
+              _showNotification(place, tokenUser, (tokenUser-1)*time);
         }
       });
     });
@@ -117,7 +119,7 @@ class Home extends StatelessWidget {
 
   FlutterLocalNotificationsPlugin localNotification;
 
-  Future _showNotification(placeName, tokenNumber) async {
+  Future _showNotification(placeName, tokenNumber, eta) async {
     var androidInitialize = new AndroidInitializationSettings("ic_launcher"); 
     var iOSInitialize = new IOSInitializationSettings();
     var initializationSettings = new InitializationSettings(android: androidInitialize, iOS: iOSInitialize);
@@ -128,7 +130,7 @@ class Home extends StatelessWidget {
     var iosDetails = new IOSNotificationDetails();
     var generalNotificationDetails = new NotificationDetails(android: androidDetails, iOS: iosDetails);
 
-    await localNotification.show(0, "Joined queue at "+placeName, "Token : "+tokenNumber.toString(), generalNotificationDetails);
+    await localNotification.show(0, "Joined queue at "+placeName, "Token : "+tokenNumber.toString() + "  |  ETA : "+eta.toString()+" min", generalNotificationDetails);
 
   }
 
@@ -144,7 +146,7 @@ class Home extends StatelessWidget {
           actions: <Widget>[
             IconButton(
               icon: Icon(
-                Icons.camera_alt,
+                Icons.qr_code_scanner,
                 color: Colors.white,
               ),
               onPressed: () {

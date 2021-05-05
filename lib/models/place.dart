@@ -3,8 +3,9 @@ class Place {
   final int tokenAvailable;
   final int totalPeople;
   final String address;
+  final int time;
 
-  Place({ this.name, this.tokenAvailable, this.totalPeople, this.address });
+  Place({ this.name, this.tokenAvailable, this.totalPeople, this.address, this.time });
 
   
 
@@ -17,6 +18,7 @@ class PlaceData {
   final int tokenAvailable;
   final int totalPeople;
   final String address;
+  final int time;
 
-  PlaceData({this.uid, this.name, this.tokenAvailable, this.totalPeople, this.address});
+  PlaceData({this.uid, this.name, this.tokenAvailable, this.totalPeople, this.address, this.time});
 }
