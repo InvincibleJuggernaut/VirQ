@@ -4,8 +4,11 @@ class Place {
   final int totalPeople;
   final String address;
   final int time;
+  final String coverPic;
+  final String galleryPic1;
+  final String galleryPic2;
 
-  Place({ this.name, this.tokenAvailable, this.totalPeople, this.address, this.time });
+  Place({ this.name, this.tokenAvailable, this.totalPeople, this.address, this.time, this.coverPic, this.galleryPic1, this.galleryPic2 });
 
   
 
@@ -19,6 +22,9 @@ class PlaceData {
   final int totalPeople;
   final String address;
   final int time;
+  final String coverPic;
+  final String galleryPic1;
+  final String galleryPic2;
 
-  PlaceData({this.uid, this.name, this.tokenAvailable, this.totalPeople, this.address, this.time});
+  PlaceData({this.uid, this.name, this.tokenAvailable, this.totalPeople, this.address, this.time, this.coverPic, this.galleryPic1, this.galleryPic2 });
 }

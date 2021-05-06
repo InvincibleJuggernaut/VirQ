@@ -20,7 +20,7 @@ class PlaceTile extends StatelessWidget {
   }
 
   Place value;
-
+  
   @override
   Widget build(BuildContext context) {
     void showQueueDetailsPanel() {
@@ -38,15 +38,18 @@ class PlaceTile extends StatelessWidget {
         child: ListTile(
           isThreeLine: true,
           leading: CircleAvatar(
+            child: Image.network(place.coverPic),
             radius: 25.0,
             backgroundColor: Colors.white,
           ),
+          
             title: Text(place.name),
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(""),
                 Text("Token    "+place.tokenAvailable.toString()),
+                
               ],
             ),
             

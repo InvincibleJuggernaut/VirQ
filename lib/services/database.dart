@@ -22,6 +22,9 @@ class DatabaseService {
         tokenAvailable: doc.data['tokenAvailable'] ?? 0,
         totalPeople: doc.data['totalPeople'] ?? 0,
         address: doc.data['address'] ?? '',
+        coverPic: doc.data['coverPic'] ?? '',
+        galleryPic1: doc.data['galleryPic1'] ?? '',
+        galleryPic2: doc.data['galleryPic2'] ?? '',
       );
     }).toList();
   }
@@ -34,6 +37,9 @@ class DatabaseService {
       tokenAvailable: snapshot.data['tokenAvailable'],
       totalPeople: snapshot.data['totalPeople'],
       address: snapshot.data['address'],
+      coverPic: snapshot.data['coverPic'],
+      galleryPic1: snapshot.data['galleryPic1'],
+      galleryPic2: snapshot.data['galleryPic2'],
     );
   }
 

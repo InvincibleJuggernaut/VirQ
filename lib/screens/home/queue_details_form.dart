@@ -22,8 +22,10 @@ class _QueueDetailsState extends State<QueueDetails> {
   
   Place value;
   _QueueDetailsState(this.value);
+
   final _formKey = GlobalKey<FormState>();
-  final List<String> people = ['Join', 'Leave'];
+  
+  
 
   String name;
   int tokenAvailable;
@@ -147,6 +149,8 @@ class _QueueDetailsState extends State<QueueDetails> {
       ),
     );
   }
+
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -171,7 +175,8 @@ class _QueueDetailsState extends State<QueueDetails> {
             "Token : "+value.tokenAvailable.toString(),
             style: TextStyle(fontSize: 15.0),
           ),
-          SizedBox(height: 20.0),
+          Image.network(value.galleryPic1, height: MediaQuery.of(context).size.width * 0.5, width: MediaQuery.of(context).size.width * 0.5),
+          //SizedBox(height: 20.0),
           RaisedButton(
             color: Colors.orange[500],
             child: Text(
