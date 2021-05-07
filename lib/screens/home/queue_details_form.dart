@@ -175,7 +175,33 @@ class _QueueDetailsState extends State<QueueDetails> {
             "Token : "+value.tokenAvailable.toString(),
             style: TextStyle(fontSize: 15.0),
           ),
-          Image.network(value.galleryPic1, height: MediaQuery.of(context).size.width * 0.5, width: MediaQuery.of(context).size.width * 0.5),
+          //Image.network(value.galleryPic1, height: MediaQuery.of(context).size.width * 0.5, width: MediaQuery.of(context).size.width * 0.5),
+          Container(
+            height: 195,
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                height: 195,
+                width: 200,
+                child: Image.network(value.galleryPic1)
+              ),
+              Container(
+                padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                height: 195,
+                width: 200,
+                child: Image.network(value.galleryPic2)
+              ),
+              Container(
+                padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                height: 195,
+                width: 200,
+                child: Image.network(value.galleryPic3)
+              ),
+            ],
+          ),
+          ),
           //SizedBox(height: 20.0),
           RaisedButton(
             color: Colors.orange[500],
