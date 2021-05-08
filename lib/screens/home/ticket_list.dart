@@ -110,6 +110,24 @@ class _TicketListState extends State<TicketList> {
     await localNotification.show(0, "Joined queue at "+placeName, "Token : "+tokenNumber.toString() + "  |  ETA : "+eta.toString()+" min", generalNotificationDetails);
 
   }
+
+  Future _showNotificationReady(placeName, tokenNumber, eta) async {
+    var androidDetails = new AndroidNotificationDetails("channelId", "Local Notification", "channelDescription", importance: Importance.high, onlyAlertOnce: true);
+    var iosDetails = new IOSNotificationDetails();
+    var generalNotificationDetails = new NotificationDetails(android: androidDetails, iOS: iosDetails);
+
+    await localNotification.show(0, "You are up next at "+placeName+" . Get Ready !", "Token : "+tokenNumber.toString() + "  |  ETA : "+eta.toString()+" min", generalNotificationDetails);
+
+  }
+
+  Future _showNotificationTurn(placeName, tokenNumber, eta) async {
+    var androidDetails = new AndroidNotificationDetails("channelId", "Local Notification", "channelDescription", importance: Importance.high, onlyAlertOnce: true);
+    var iosDetails = new IOSNotificationDetails();
+    var generalNotificationDetails = new NotificationDetails(android: androidDetails, iOS: iosDetails);
+
+    await localNotification.show(0, "It's your turn at "+placeName, "Get in there !", generalNotificationDetails);
+
+  }    
   
   String value;
   _TicketListState(this.value);
@@ -148,7 +166,18 @@ class _TicketListState extends State<TicketList> {
           }
           else
           {
+          if(snapshot.data['token']==2)
+          {
+            _showNotificationReady(snapshot.data['queueAt'], snapshot.data['token'], snapshot.data['eta']);
+          }
+          else if(snapshot.data['token']==1)
+          {
+            _showNotificationTurn(snapshot.data['queueAt'], snapshot.data['token'], snapshot.data['eta']);
+          }
+          else
+          {
           _showNotification(snapshot.data['queueAt'], snapshot.data['token'], snapshot.data['eta']);  
+          }
           return TicketPass(
               alignment: Alignment.center,
               animationDuration: Duration(seconds: 1),

@@ -25,7 +25,7 @@ class DatabaseService {
         coverPic: doc.data['coverPic'] ?? '',
         galleryPic1: doc.data['galleryPic1'] ?? '',
         galleryPic2: doc.data['galleryPic2'] ?? '',
-        galleryPic3: doc.data['galleryPic2'] ?? '',
+        galleryPic3: doc.data['galleryPic3'] ?? '',
       );
     }).toList();
   }
@@ -41,7 +41,7 @@ class DatabaseService {
       coverPic: snapshot.data['coverPic'],
       galleryPic1: snapshot.data['galleryPic1'],
       galleryPic2: snapshot.data['galleryPic2'],
-      galleryPic3: snapshot.data['galleryPic2'],
+      galleryPic3: snapshot.data['galleryPic3'],
     );
   }
 

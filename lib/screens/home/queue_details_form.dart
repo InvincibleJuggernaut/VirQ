@@ -137,7 +137,18 @@ class _QueueDetailsState extends State<QueueDetails> {
     var iosDetails = new IOSNotificationDetails();
     var generalNotificationDetails = new NotificationDetails(android: androidDetails, iOS: iosDetails);
 
+    if(tokenNumber == 2)
+    {
+      await localNotification.show(0, "You are up next at "+placeName+" . Get Ready !", "Token : "+tokenNumber.toString() + "  |  ETA : "+eta.toString()+" min", generalNotificationDetails);
+    }
+    else if(tokenNumber == 1)
+    {
+      await localNotification.show(0, "It's your turn at "+placeName, "Get in there !", generalNotificationDetails);
+    }
+    else
+    {
     await localNotification.show(0, "Joined queue at "+placeName, "Token : "+tokenNumber.toString() + "  |  ETA : "+eta.toString()+" min", generalNotificationDetails);
+    }
 
   }
 
