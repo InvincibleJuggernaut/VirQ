@@ -42,6 +42,7 @@ class _TicketListState extends State<TicketList> {
             "queueAt": 'none',
             "token": 0,
             "time": 'none',
+            "eta": 0,
           }).then((result) {
             print("User data updated");
           }).catchError((onError){
@@ -85,6 +86,7 @@ class _TicketListState extends State<TicketList> {
         }
       });
     });
+       localNotification.cancelAll();
 
   }
 
@@ -107,6 +109,8 @@ class _TicketListState extends State<TicketList> {
     var iosDetails = new IOSNotificationDetails();
     var generalNotificationDetails = new NotificationDetails(android: androidDetails, iOS: iosDetails);
 
+    localNotification.cancel(1);
+    localNotification.cancel(2);
     await localNotification.show(0, "Joined queue at "+placeName, "Token : "+tokenNumber.toString() + "  |  ETA : "+eta.toString()+" min", generalNotificationDetails);
 
   }
@@ -116,7 +120,9 @@ class _TicketListState extends State<TicketList> {
     var iosDetails = new IOSNotificationDetails();
     var generalNotificationDetails = new NotificationDetails(android: androidDetails, iOS: iosDetails);
 
-    await localNotification.show(0, "You are up next at "+placeName+" . Get Ready !", "Token : "+tokenNumber.toString() + "  |  ETA : "+eta.toString()+" min", generalNotificationDetails);
+    localNotification.cancel(0);
+    localNotification.cancel(2);
+    await localNotification.show(1, "You are up next at "+placeName+". Get Ready !", "Token : "+tokenNumber.toString() + "  |  ETA : "+eta.toString()+" min", generalNotificationDetails);
 
   }
 
@@ -124,8 +130,10 @@ class _TicketListState extends State<TicketList> {
     var androidDetails = new AndroidNotificationDetails("channelId", "Local Notification", "channelDescription", importance: Importance.high, onlyAlertOnce: true);
     var iosDetails = new IOSNotificationDetails();
     var generalNotificationDetails = new NotificationDetails(android: androidDetails, iOS: iosDetails);
-
-    await localNotification.show(0, "It's your turn at "+placeName, "Get in there !", generalNotificationDetails);
+    
+    localNotification.cancel(0);
+    localNotification.cancel(1);
+    await localNotification.show(2, "It's your turn at "+placeName, "Get in there !", generalNotificationDetails);
 
   }    
   

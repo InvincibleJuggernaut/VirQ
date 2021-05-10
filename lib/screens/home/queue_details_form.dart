@@ -133,20 +133,26 @@ class _QueueDetailsState extends State<QueueDetails> {
   }
 
   Future _showNotification(placeName, tokenNumber, eta) async {
-    var androidDetails = new AndroidNotificationDetails("channelId", "Local Notification", "channelDescription", importance: Importance.high);
+    var androidDetails = new AndroidNotificationDetails("channelId", "Local Notification", "channelDescription", importance: Importance.high, onlyAlertOnce: true);
     var iosDetails = new IOSNotificationDetails();
     var generalNotificationDetails = new NotificationDetails(android: androidDetails, iOS: iosDetails);
 
     if(tokenNumber == 2)
     {
-      await localNotification.show(0, "You are up next at "+placeName+" . Get Ready !", "Token : "+tokenNumber.toString() + "  |  ETA : "+eta.toString()+" min", generalNotificationDetails);
+      localNotification.cancel(0);
+      localNotification.cancel(2);
+      await localNotification.show(1, "You are up next at "+placeName+" . Get Ready !", "Token : "+tokenNumber.toString() + "  |  ETA : "+eta.toString()+" min", generalNotificationDetails);
     }
     else if(tokenNumber == 1)
     {
-      await localNotification.show(0, "It's your turn at "+placeName, "Get in there !", generalNotificationDetails);
+      localNotification.cancel(0);
+      localNotification.cancel(1);
+      await localNotification.show(2, "It's your turn at "+placeName, "Get in there !", generalNotificationDetails);
     }
     else
     {
+      localNotification.cancel(1);
+      localNotification.cancel(2);
     await localNotification.show(0, "Joined queue at "+placeName, "Token : "+tokenNumber.toString() + "  |  ETA : "+eta.toString()+" min", generalNotificationDetails);
     }
 
@@ -222,7 +228,13 @@ class _QueueDetailsState extends State<QueueDetails> {
             ),
             onPressed: () async {
               //updateData(value);
-                updateUserData();             
+                updateUserData(); 
+                Navigator.pop(context);
+                Fluttertoast.showToast(
+                  msg: "Your slot details are available inside Tickets section",
+                  toastLength: Toast.LENGTH_LONG,
+                  gravity: ToastGravity.BOTTOM,
+                );            
               }
         
           ),

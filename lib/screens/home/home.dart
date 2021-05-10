@@ -71,13 +71,18 @@ class Home extends StatelessWidget {
           });
             });
           });
+          Fluttertoast.showToast(
+                  msg: "Your slot details are available inside Tickets section",
+                  toastLength: Toast.LENGTH_LONG,
+                  gravity: ToastGravity.BOTTOM,
+                ); 
 
         }
         else if(doc.documentID == uid && doc.data['status']=='true')
         {
         Fluttertoast.showToast(
         msg: "You are already enrolled in a queue",
-        toastLength: Toast.LENGTH_SHORT,
+        toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.BOTTOM,
         );
         }
@@ -116,11 +121,28 @@ class Home extends StatelessWidget {
 
     localNotification = new FlutterLocalNotificationsPlugin();
     localNotification.initialize(initializationSettings);
-    var androidDetails = new AndroidNotificationDetails("channelId", "Local Notification", "channelDescription", importance: Importance.high);
+    var androidDetails = new AndroidNotificationDetails("channelId", "Local Notification", "channelDescription", importance: Importance.high, onlyAlertOnce: true);
     var iosDetails = new IOSNotificationDetails();
     var generalNotificationDetails = new NotificationDetails(android: androidDetails, iOS: iosDetails);
 
+    if(tokenNumber == 2)
+    {
+      localNotification.cancel(0);
+      localNotification.cancel(2);
+      await localNotification.show(1, "You are up next at "+placeName+". Get Ready !", "Token : "+tokenNumber.toString() + "  |  ETA : "+eta.toString()+" min", generalNotificationDetails);
+    }
+    else if(tokenNumber == 1)
+    {
+      localNotification.cancel(0);
+      localNotification.cancel(1);
+      await localNotification.show(2, "It's your turn at "+placeName, "Get in there !", generalNotificationDetails);
+    }
+    else
+    {
+      localNotification.cancel(1);
+      localNotification.cancel(2);
     await localNotification.show(0, "Joined queue at "+placeName, "Token : "+tokenNumber.toString() + "  |  ETA : "+eta.toString()+" min", generalNotificationDetails);
+    }
 
   }
 
