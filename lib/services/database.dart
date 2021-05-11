@@ -1,4 +1,5 @@
 import 'package:VirQ/models/place.dart';
+import 'package:VirQ/models/user.dart';
 import "package:cloud_firestore/cloud_firestore.dart";
 
 class DatabaseService {
@@ -72,5 +73,24 @@ class UserDatabaseService {
       'time': time,
       'eta': eta,
     });
+  }
+
+  List<User> _userListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.documents.map((doc){
+      return User(
+        uid: doc.documentID ?? '',
+        email: doc.data['email'] ?? 0,
+        status: doc.data['status'] ?? 0,
+        queueAt: doc.data['queueAt'] ?? '',
+        token: doc.data['token'] ?? '',
+        time: doc.data['time'] ?? '',
+        eta: doc.data['eta'] ?? '',
+      );
+    }).toList();
+  }
+
+    Stream<List<User>> get users {
+    return userCollection.snapshots()
+      .map(_userListFromSnapshot);
   }
 }

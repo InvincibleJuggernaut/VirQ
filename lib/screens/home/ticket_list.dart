@@ -1,4 +1,5 @@
 import 'package:VirQ/services/database.dart';
+import 'package:android_alarm_manager/android_alarm_manager.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -196,6 +197,7 @@ class _TicketListState extends State<TicketList> {
                   color: Colors.red,
                   onPressed: () async {
                       updateUserData();
+                      AndroidAlarmManager.cancel(0);
                   }
                   //size: 20,             
                 ),

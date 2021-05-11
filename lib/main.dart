@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:VirQ/models/user.dart';
 
-void main() {
+
+void main() async {
   runApp(MyApp());
 }
 

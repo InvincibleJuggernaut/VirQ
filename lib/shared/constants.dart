@@ -4,9 +4,11 @@ const textInputDecoration = InputDecoration(
   hintStyle: TextStyle(color: Colors.white),
   border: OutlineInputBorder(),
   focusedBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.orange, width: 2.0)
+    borderRadius: BorderRadius.all(Radius.circular(15)),
+    borderSide: BorderSide(color: Colors.blue, width: 2.0)
     ),
     enabledBorder: OutlineInputBorder(
+    borderRadius: BorderRadius.all(Radius.circular(15)),
     borderSide: BorderSide(color: Colors.green, width: 2.0)
   ),
 );

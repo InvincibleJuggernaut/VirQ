@@ -229,6 +229,7 @@ class _QueueDetailsState extends State<QueueDetails> {
             onPressed: () async {
               //updateData(value);
                 updateUserData(); 
+                
                 Navigator.pop(context);
                 Fluttertoast.showToast(
                   msg: "Your slot details are available inside Tickets section",
