@@ -35,7 +35,11 @@ dependencies:
   flutter_spinkit: ^4.0.0
   ticket_pass_package: ^0.1.0
   intl: ^0.16.1
-  rflutter_alert: ^1.0.2
+  flutter_local_notifications: 3.0.1+6
+  barcode_scan: ^1.0.0
+  fluttertoast: 
+  photo_view: 
+  android_alarm_manager:
 
 dev_dependencies:
   flutter_test:
