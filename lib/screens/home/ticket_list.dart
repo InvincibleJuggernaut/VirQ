@@ -1,5 +1,4 @@
 import 'package:VirQ/services/database.dart';
-import 'package:android_alarm_manager/android_alarm_manager.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -145,10 +144,10 @@ class _TicketListState extends State<TicketList> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Tickets'),
-        backgroundColor: Colors.green[500],
+        backgroundColor: Color(0xFF008604),
       ),
       //floatingActionButton: null,
-      backgroundColor: Colors.green[500],
+      backgroundColor: Color(0xFF008604),
       body: Align(
         alignment: Alignment.topCenter,
         child: Container(
@@ -191,13 +190,13 @@ class _TicketListState extends State<TicketList> {
               alignment: Alignment.center,
               animationDuration: Duration(seconds: 1),
               expandedHeight: 400,
-              expandIcon: FlatButton.icon(
-                  label: Text('Leave'),
-                  icon: Icon(Icons.blur_on_sharp),
-                  color: Colors.red,
+              expandIcon: FlatButton(
+                  child: Tooltip(
+                    message: "Leave",
+                    child: Icon(Icons.delete, color: Colors.red),
+                    ),
                   onPressed: () async {
                       updateUserData();
-                      AndroidAlarmManager.cancel(0);
                   }
                   //size: 20,             
                 ),
@@ -212,7 +211,7 @@ class _TicketListState extends State<TicketList> {
               //separatorHeight: 2.0,
               color: Colors.white,
               curve: Curves.easeOut,
-              titleColor: Colors.orange,
+              titleColor: Color(0xFF470045),
               shrinkIcon: Align(
                 alignment: Alignment.centerRight,
                 child: CircleAvatar(
@@ -225,7 +224,7 @@ class _TicketListState extends State<TicketList> {
                 ),
               ),
               ticketTitle: Text(
-                'QR Code',
+                '',
                 style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w600,
@@ -352,39 +351,6 @@ class _TicketListState extends State<TicketList> {
         ),
       );
           }
-          /*return Padding(
-            padding: EdgeInsets.only(top: 8.0),
-            child: Card(
-              margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
-              child: ListTile(
-                isThreeLine: true,
-                leading: CircleAvatar(
-                  radius: 25.0,
-                  backgroundColor: Colors.white,
-                ),
-                title: Text(snapshot.data['queueAt']),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text("Your token : "+snapshot.data['token'].toString()),
-                  ],
-                ),
-                trailing: FlatButton.icon(
-                  icon: Icon(Icons.add_box_rounded),
-                  label: Text('View'),
-                  onPressed: () async {},
-                )
-              ),
-            )
-          );*/
-          /*ListView(
-            children: <Widget>[
-            ListTile(
-              title: Text(snapshot.data['queueAt']),
-              subtitle: Text(snapshot.data['token'].toString()),
-            ),
-            ],
-            );*/
         },
       )
         )

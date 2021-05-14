@@ -39,7 +39,6 @@ dependencies:
   barcode_scan: ^1.0.0
   fluttertoast: 
   photo_view: 
-  android_alarm_manager:
 
 dev_dependencies:
   flutter_test:

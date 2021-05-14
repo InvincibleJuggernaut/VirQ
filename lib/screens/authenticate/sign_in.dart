@@ -26,7 +26,7 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     return loading ? Loading() : Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.green[900],
+      backgroundColor: Color(0xFF008604),
       
       body: Container(
         margin: EdgeInsets.only(left:50, right:50, top:200, bottom: 40),
@@ -35,7 +35,7 @@ class _SignInState extends State<SignIn> {
           child: Column(
             children: <Widget>[
               TextFormField(
-                decoration: textInputDecoration.copyWith(hintText: 'Email', hintStyle: TextStyle(color: Colors.grey)),
+                decoration: textInputDecoration.copyWith(hintText: 'Email', hintStyle: TextStyle(color: Color(0xFF470045))),
                 style: TextStyle(color: Colors.white),
                 validator: (val) => val.isEmpty ? 'Enter an email' : null,
                 onChanged: (val) {
@@ -45,7 +45,7 @@ class _SignInState extends State<SignIn> {
               ),
               SizedBox(height: 20.0),
               TextFormField(
-                decoration: textInputDecoration.copyWith(hintText: 'Password', hintStyle: TextStyle(color: Colors.grey)),
+                decoration: textInputDecoration.copyWith(hintText: 'Password', hintStyle: TextStyle(color: Color(0xFF470045))),
                 style: TextStyle(color: Colors.white),
                 validator: (val) => val.length < 6 ? 'Enter a password with atleast 6 characters' : null,
                 obscureText: true,
@@ -60,9 +60,10 @@ class _SignInState extends State<SignIn> {
                 style: TextStyle(color: Colors.red, fontSize: 14.0),
               ),
 
-              SizedBox(height: 20.0),
+              SizedBox(height: 20.0, width: 30.0),
               RaisedButton(
-                color: Colors.blue,
+                padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
+                color: Color(0xFF470045),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                 child: Text(
                   'Sign In',
@@ -91,7 +92,7 @@ class _SignInState extends State<SignIn> {
                 hoverElevation: 0,
                 focusElevation: 0,
                 highlightElevation: 0,
-                color: Colors.green[900],
+                color: Color(0xFF008604),
                 child: Text(
                   'New here? Sign Up',
                   style: TextStyle(color: Colors.white),

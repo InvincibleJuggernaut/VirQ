@@ -26,6 +26,7 @@ class PlaceTile extends StatelessWidget {
     void showQueueDetailsPanel() {
       showModalBottomSheet(context: context, builder: (context) {
         return Container(
+          color: Color(0xFF008604),
           padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 40.0),
           child: QueueDetails(value: place),
         );
@@ -34,28 +35,34 @@ class PlaceTile extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(top: 8.0),
       child: Card(
+        color: Color(0xFF008604),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(15)),
+            side: BorderSide(width:2, color: Color(0xFF00B906))),
+          
         margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
         child: ListTile(
           isThreeLine: true,
           leading: CircleAvatar(
             child: Image.network(place.coverPic),
             radius: 25.0,
-            backgroundColor: Colors.white,
+            backgroundColor: Color(0xFF008604),
           ),
           
-            title: Text(place.name),
+            title: Text(place.name, style: TextStyle(color: Colors.white)),
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(""),
-                Text("Token    "+place.tokenAvailable.toString()),
+                Text("Token    "+place.tokenAvailable.toString(), style: TextStyle(color: Colors.white)),
                 
               ],
             ),
             
             trailing: FlatButton.icon(
-              icon: Icon(Icons.add_box_rounded),
-              label: Text('View'),
+              icon: Icon(Icons.add_box_rounded, color: Colors.white),
+              label: Text('View',  style: TextStyle(color: Colors.white)),
               onPressed: () async {
                 showQueueDetailsPanel();
               },

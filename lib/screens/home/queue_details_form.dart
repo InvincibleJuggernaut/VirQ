@@ -176,21 +176,21 @@ class _QueueDetailsState extends State<QueueDetails> {
         children: <Widget>[
           Text(
             value.name,
-            style: TextStyle(fontSize: 25.0),
+            style: TextStyle(fontSize: 25.0, color: Colors.white),
           ),
           Text(
             '',
           ),
           Text(
             value.address,
-            style: TextStyle(fontSize: 15.0),
+            style: TextStyle(fontSize: 15.0, color: Color(0xFF470045)),
           ),
           Text(
             '',
           ),
           Text(
             "Token : "+value.tokenAvailable.toString(),
-            style: TextStyle(fontSize: 15.0),
+            style: TextStyle(fontSize: 15.0, color: Color(0xFF470045)),
           ),
           //Image.network(value.galleryPic1, height: MediaQuery.of(context).size.width * 0.5, width: MediaQuery.of(context).size.width * 0.5),
           Container(
@@ -221,7 +221,9 @@ class _QueueDetailsState extends State<QueueDetails> {
           ),
           //SizedBox(height: 20.0),
           RaisedButton(
-            color: Colors.orange[500],
+            padding: EdgeInsets.fromLTRB(27, 10, 27, 10),
+            color: Color(0xFF470045),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             child: Text(
               'Join Queue',
               style: TextStyle(color: Colors.white),

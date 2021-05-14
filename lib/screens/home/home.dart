@@ -154,9 +154,10 @@ class Home extends StatelessWidget {
         child: Scaffold(
         drawer: SideDrawer(),
         appBar: AppBar(
-          backgroundColor: Colors.green[500],
+          backgroundColor: Color(0xFF008604),
           actions: <Widget>[
             IconButton(
+              tooltip: "Scan QR code",
               icon: Icon(
                 Icons.qr_code_scanner,
                 color: Colors.white,
@@ -168,7 +169,7 @@ class Home extends StatelessWidget {
           ]
         ),
         body: PlaceList(),
-        backgroundColor: Colors.green[500],
+        backgroundColor: Color(0xFF008604),
       ),
     );
   }
@@ -207,19 +208,19 @@ class SideDrawer extends StatelessWidget {
             child: Center(
             ),
             decoration: BoxDecoration(
-              color: Colors.orange,
+              color: Color(0xFF470045),
             ),
             ),
             ListTile(
-            leading: Icon(Icons.account_balance_wallet_rounded),
-            title: Text('Tickets'),
+            leading: Icon(Icons.account_balance_wallet_rounded, color: Colors.white),
+            title: Text('Tickets', style: TextStyle(color: Colors.white)),
             onTap: () {
               userData(context);
             },
             ),
             ListTile(
-            leading: Icon(Icons.exit_to_app),
-            title: Text('Sign Out'),
+            leading: Icon(Icons.exit_to_app, color: Colors.white),
+            title: Text('Sign Out', style: TextStyle(color: Colors.white)),
             onTap: () async {
               await _auth.signOut();
             },
