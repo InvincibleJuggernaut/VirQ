@@ -103,6 +103,12 @@ class _QueueDetailsState extends State<QueueDetails> {
           });
             });
           });
+                          Navigator.pop(context);
+                Fluttertoast.showToast(
+                  msg: "Your slot details are available inside Tickets section",
+                  toastLength: Toast.LENGTH_LONG,
+                  gravity: ToastGravity.BOTTOM,
+                );   
 
         }
         else if(doc.documentID == uid && doc.data['status']=='true')
@@ -141,7 +147,7 @@ class _QueueDetailsState extends State<QueueDetails> {
     {
       localNotification.cancel(0);
       localNotification.cancel(2);
-      await localNotification.show(1, "You are up next at "+placeName+" . Get Ready !", "Token : "+tokenNumber.toString() + "  |  ETA : "+eta.toString()+" min", generalNotificationDetails);
+      await localNotification.show(1, "You are up next at "+placeName+". Get Ready !", "Token : "+tokenNumber.toString() + "  |  ETA : "+eta.toString()+" min", generalNotificationDetails);
     }
     else if(tokenNumber == 1)
     {
@@ -176,25 +182,27 @@ class _QueueDetailsState extends State<QueueDetails> {
         children: <Widget>[
           Text(
             value.name,
-            style: TextStyle(fontSize: 25.0, color: Colors.white),
+            style: TextStyle(fontSize: 25.0, color: Colors.white, fontWeight: FontWeight.w900),
           ),
           Text(
             '',
           ),
           Text(
             value.address,
-            style: TextStyle(fontSize: 15.0, color: Color(0xFF470045)),
+            style: TextStyle(fontSize: 15.0, color: Colors.white),
           ),
           Text(
             '',
           ),
           Text(
             "Token : "+value.tokenAvailable.toString(),
-            style: TextStyle(fontSize: 15.0, color: Color(0xFF470045)),
+            style: TextStyle(fontSize: 15.0, color: Colors.white),
           ),
           //Image.network(value.galleryPic1, height: MediaQuery.of(context).size.width * 0.5, width: MediaQuery.of(context).size.width * 0.5),
           Container(
-            height: 195,
+            padding: EdgeInsets.fromLTRB(0, 3, 0, 5),
+            height: 140,
+            //height: 195,
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: <Widget>[
@@ -232,12 +240,7 @@ class _QueueDetailsState extends State<QueueDetails> {
               //updateData(value);
                 updateUserData(); 
                 
-                Navigator.pop(context);
-                Fluttertoast.showToast(
-                  msg: "Your slot details are available inside Tickets section",
-                  toastLength: Toast.LENGTH_LONG,
-                  gravity: ToastGravity.BOTTOM,
-                );            
+         
               }
         
           ),
