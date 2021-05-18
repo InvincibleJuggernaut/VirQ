@@ -201,8 +201,8 @@ class _QueueDetailsState extends State<QueueDetails> {
           //Image.network(value.galleryPic1, height: MediaQuery.of(context).size.width * 0.5, width: MediaQuery.of(context).size.width * 0.5),
           Container(
             padding: EdgeInsets.fromLTRB(0, 3, 0, 5),
-            height: 140,
-            //height: 195,
+            //height: 140,
+            height: 195,
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: <Widget>[
@@ -229,7 +229,7 @@ class _QueueDetailsState extends State<QueueDetails> {
           ),
           //SizedBox(height: 20.0),
           RaisedButton(
-            padding: EdgeInsets.fromLTRB(27, 10, 27, 10),
+            //padding: EdgeInsets.fromLTRB(27, 10, 27, 10),
             color: Color(0xFF470045),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             child: Text(

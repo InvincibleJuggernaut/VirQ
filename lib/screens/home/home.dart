@@ -64,6 +64,7 @@ class Home extends StatelessWidget {
             "queueAt": place,
             "token": tokenUser,
             "time": DateTime.now().toString(),
+            "eta": (tokenUser-1)*time,
           }).then((result) {
             print(doc.data['email']+" data updated");
           }).catchError((onError){
