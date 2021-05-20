@@ -60,6 +60,7 @@ class _TicketListState extends State<TicketList> {
                 }).catchError((onError){
                   print("Received an error");
                 });
+          Firestore.instance.collection('places'+'/'+doc.documentID+'/queue').document(uid).delete();
         }
       });
     });

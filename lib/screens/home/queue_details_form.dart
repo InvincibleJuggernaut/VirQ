@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:VirQ/models/place.dart';
 import 'package:VirQ/screens/home/qr_scan.dart';
 import 'package:VirQ/services/database.dart';
@@ -25,7 +27,9 @@ class _QueueDetailsState extends State<QueueDetails> {
 
   final _formKey = GlobalKey<FormState>();
   
-  
+  String uid;
+  String userEmail;
+  int userETA;
 
   String name;
   int tokenAvailable;
@@ -53,7 +57,12 @@ class _QueueDetailsState extends State<QueueDetails> {
                 }).catchError((onError){
                   print("Received an error");
                 });
-                  _showNotification(place, tokenUser, (tokenUser-1)*time);        
+                  _showNotification(place, tokenUser, (tokenUser-1)*time);    
+          Firestore.instance.collection('places'+'/'+docu.documentID+'/queue').document(uid).setData({
+            "email": userEmail,
+            "token": tokenUser,
+            "eta": userETA,
+          });  
         }
       });
     });
@@ -80,7 +89,7 @@ class _QueueDetailsState extends State<QueueDetails> {
     final FirebaseAuth auth = FirebaseAuth.instance;
     
     final FirebaseUser user  = await auth.currentUser();
-    String uid = user.uid;
+    uid = user.uid;
 
     UserDatabaseService().userCollection.getDocuments().then((QuerySnapshot snapshot) {
       snapshot.documents.forEach((DocumentSnapshot doc) {
@@ -89,7 +98,6 @@ class _QueueDetailsState extends State<QueueDetails> {
           updatePlaceData(value.name);
           UserDatabaseService().userCollection.getDocuments().then((QuerySnapshot snapshot) {
             snapshot.documents.forEach((DocumentSnapshot doc) {
-    
           Firestore.instance.collection('users').document(uid).updateData({
             "status": "true",
             "queueAt": place,
@@ -103,6 +111,8 @@ class _QueueDetailsState extends State<QueueDetails> {
           });
             });
           });
+          userEmail = doc.data['email'];
+          userETA = doc.data['eta'];
                           Navigator.pop(context);
                 Fluttertoast.showToast(
                   msg: "Your slot details are available inside Tickets section",
@@ -124,12 +134,23 @@ class _QueueDetailsState extends State<QueueDetails> {
         });
     });
   }
+  Timer timer;
+
   
+  void updateETA() {
+    if(userETA != null)
+    {
+    userETA = userETA - 1;
+    _showNotification(place, tokenUser, userETA);
+    print("RAN");
+    }
+  }
   FlutterLocalNotificationsPlugin localNotification;
 
   @override
   void initState() {
     super.initState();
+    //timer = Timer.periodic(Duration(minutes: 1), (Timer t) => updateETA());
     var androidInitialize = new AndroidInitializationSettings("ic_launcher"); 
     var iOSInitialize = new IOSInitializationSettings();
     var initializationSettings = new InitializationSettings(android: androidInitialize, iOS: iOSInitialize);
