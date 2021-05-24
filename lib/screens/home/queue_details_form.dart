@@ -138,11 +138,26 @@ class _QueueDetailsState extends State<QueueDetails> {
 
   
   void updateETA() {
-    if(userETA != null)
-    {
-    userETA = userETA - 1;
-    _showNotification(place, tokenUser, userETA);
-    print("RAN");
+    UserDatabaseService().userCollection.getDocuments().then((QuerySnapshot snapshot) {
+      snapshot.documents.forEach((DocumentSnapshot doc) {
+        if(doc.documentID == uid)
+        {
+          userETA = doc.data['eta'];
+        }
+      });
+    });
+    if(userETA > 0) {
+      Firestore.instance.collection('users').document(uid).updateData({
+        "eta": FieldValue.increment(-1),
+      });
+      _showNotification(placeName, tokenUser, userETA);
+      print("RUN");
+    }
+    else if(userETA == 0) {
+      Firestore.instance.collection('users').document(uid).updateData({
+        "eta": FieldValue.increment(1),
+      });
+      _showNotification(placeName, tokenUser, userETA+1);
     }
   }
   FlutterLocalNotificationsPlugin localNotification;
