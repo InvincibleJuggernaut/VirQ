@@ -20,6 +20,9 @@ class TicketList extends StatefulWidget {
 
 class _TicketListState extends State<TicketList> {
   
+  int userETA;
+  int placeTime;
+
   updateUserData() async {
 
     String place;
@@ -36,6 +39,7 @@ class _TicketListState extends State<TicketList> {
         {
           place = doc.data['queueAt'];
           userDeleted = doc.data['token'];
+          
           //print(place);
           Firestore.instance.collection('users').document(doc.documentID).updateData({
             "status": 'false',
@@ -52,6 +56,7 @@ class _TicketListState extends State<TicketList> {
       snapshot.documents.forEach((DocumentSnapshot doc) {
         if(doc.data['name']==place)
         {
+          placeTime = doc.data['time'];
           Firestore.instance.collection('places').document(doc.documentID).updateData({
                   "tokenAvailable": FieldValue.increment(-1),
                   "totalPeople": FieldValue.increment(-1),
@@ -76,9 +81,11 @@ class _TicketListState extends State<TicketList> {
       snapshot.documents.forEach((DocumentSnapshot doc) {
         if(doc.documentID != uid && doc.data['queueAt']==place && doc.data['token'] > deleted)
         {
+          userETA = doc.data['eta'];
           //print(place);
           Firestore.instance.collection('users').document(doc.documentID).updateData({
             "token": FieldValue.increment(-1),
+            "eta": (doc.data['token']-2)*placeTime,
           }).then((result) {
             print(doc.data['email']+" : data updated");
           }).catchError((onError){

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:VirQ/models/place.dart';
-import 'package:VirQ/screens/home/qr_scan.dart';
 import 'package:VirQ/services/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -30,6 +29,9 @@ class _QueueDetailsState extends State<QueueDetails> {
   String uid;
   String userEmail;
   int userETA;
+  int userToken;
+  String userStatus;
+  String userPlace;
 
   String name;
   int tokenAvailable;
@@ -61,7 +63,7 @@ class _QueueDetailsState extends State<QueueDetails> {
           Firestore.instance.collection('places'+'/'+docu.documentID+'/queue').document(uid).setData({
             "email": userEmail,
             "token": tokenUser,
-            "eta": userETA,
+            "eta": (tokenUser-1)*time,
           });  
         }
       });
@@ -135,37 +137,43 @@ class _QueueDetailsState extends State<QueueDetails> {
     });
   }
   Timer timer;
-
+  
   
   void updateETA() {
     UserDatabaseService().userCollection.getDocuments().then((QuerySnapshot snapshot) {
       snapshot.documents.forEach((DocumentSnapshot doc) {
-        if(doc.documentID == uid)
+        if(doc.documentID == uid && doc.data['status'] == 'true')
         {
-          userETA = doc.data['eta'];
-        }
-      });
-    });
-    if(userETA > 0) {
+          userETA = doc.data['eta']-1;
+          userToken = doc.data['token'];
+          userStatus = doc.data['status'];
+          userPlace = doc.data['queueAt'];
+          if(userETA > 0 && userToken != 1 && userStatus == 'true') {
       Firestore.instance.collection('users').document(uid).updateData({
         "eta": FieldValue.increment(-1),
       });
-      _showNotification(placeName, tokenUser, userETA);
-      print("RUN");
+      print("ETA"+userETA.toString());
+      _showNotification(userPlace, userToken, userETA);
+      print("RUN1");
     }
-    else if(userETA == 0) {
+    else if(userETA == 0 && userToken != 1 && userStatus == 'true') {
       Firestore.instance.collection('users').document(uid).updateData({
-        "eta": FieldValue.increment(1),
+        "eta": 2,
       });
-      _showNotification(placeName, tokenUser, userETA+1);
+      _showNotification(userPlace, userToken, userETA+2);
+      print("RUN2");
     }
+        }
+      });
+    });
+    
   }
   FlutterLocalNotificationsPlugin localNotification;
 
   @override
   void initState() {
     super.initState();
-    //timer = Timer.periodic(Duration(minutes: 1), (Timer t) => updateETA());
+    timer = Timer.periodic(Duration(minutes: 1), (Timer timer) => updateETA());
     var androidInitialize = new AndroidInitializationSettings("ic_launcher"); 
     var iOSInitialize = new IOSInitializationSettings();
     var initializationSettings = new InitializationSettings(android: androidInitialize, iOS: iOSInitialize);
@@ -178,6 +186,13 @@ class _QueueDetailsState extends State<QueueDetails> {
     var androidDetails = new AndroidNotificationDetails("channelId", "Local Notification", "channelDescription", importance: Importance.high, onlyAlertOnce: true);
     var iosDetails = new IOSNotificationDetails();
     var generalNotificationDetails = new NotificationDetails(android: androidDetails, iOS: iosDetails);
+
+    var androidInitialize = new AndroidInitializationSettings("ic_launcher"); 
+    var iOSInitialize = new IOSInitializationSettings();
+    var initializationSettings = new InitializationSettings(android: androidInitialize, iOS: iOSInitialize);
+
+    localNotification = new FlutterLocalNotificationsPlugin();
+    localNotification.initialize(initializationSettings);
 
     if(tokenNumber == 2)
     {
@@ -198,15 +213,6 @@ class _QueueDetailsState extends State<QueueDetails> {
     await localNotification.show(0, "Joined queue at "+placeName, "Token : "+tokenNumber.toString() + "  |  ETA : "+eta.toString()+" min", generalNotificationDetails);
     }
 
-  }
-
-  Future<void> qrCodeScanner(BuildContext context) async {
-    await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => QRScan(),
-      ),
-    );
   }
 
 
@@ -231,14 +237,14 @@ class _QueueDetailsState extends State<QueueDetails> {
             '',
           ),
           Text(
-            "Token : "+value.tokenAvailable.toString(),
+            "Token available : "+value.tokenAvailable.toString(),
             style: TextStyle(fontSize: 15.0, color: Colors.white),
           ),
           //Image.network(value.galleryPic1, height: MediaQuery.of(context).size.width * 0.5, width: MediaQuery.of(context).size.width * 0.5),
           Container(
             padding: EdgeInsets.fromLTRB(0, 3, 0, 5),
-            //height: 140,
-            height: 195,
+            height: 140,
+            //height: 195,
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: <Widget>[
