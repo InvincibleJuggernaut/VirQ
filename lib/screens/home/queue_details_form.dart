@@ -163,6 +163,10 @@ class _QueueDetailsState extends State<QueueDetails> {
       _showNotification(userPlace, userToken, userETA+2);
       print("RUN2");
     }
+    else if(userETA == -1 && userToken == 1 && userStatus == 'true') {
+      _showNotification(userPlace, userToken, userETA+1);
+      print("RUN3");
+    }
         }
       });
     });
@@ -243,8 +247,8 @@ class _QueueDetailsState extends State<QueueDetails> {
           //Image.network(value.galleryPic1, height: MediaQuery.of(context).size.width * 0.5, width: MediaQuery.of(context).size.width * 0.5),
           Container(
             padding: EdgeInsets.fromLTRB(0, 3, 0, 5),
-            height: 140,
-            //height: 195,
+            //height: 140,
+            height: 195,
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: <Widget>[
