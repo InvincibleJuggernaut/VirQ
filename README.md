@@ -2,8 +2,7 @@
 <h1 align="center">VirQ</h1>
 
 <p align="center">
-<img src="Assets/Poster.png">
-</p>
+<img src="Assets/View_section.png" width="272" height="493"><img src="Assets/Poster.png" width="252" height="493"></p>
 
 
 <h2>Introduction</h2>
