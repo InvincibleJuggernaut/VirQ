@@ -35,7 +35,7 @@ The advantages of this approach are :
 
 <h2>Working</h2>
 
-The whole procedure can be explained in five steps.
+The whole procedure can be explained in five steps:
 <ul>
   <li>Sign-up or sign-in by the user.</li>
   <li>The home screen displays a list of insitutions and shops nearby along with the available token for booking a spot in the queue. The user can join a queue as appropriate.</li>
