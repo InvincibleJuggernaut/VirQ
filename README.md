@@ -44,4 +44,9 @@ The whole procedure can be explained in five steps:
   <li> The user is reminded to visit the location once the turn is about to come.</li>
   </ul>
   
+<h2>Tools</h2>
 
+<ul>
+  <li> Flutter: 1.22.6 (stable)</li>
+  <li> Dart: 2.10.5</li>
+  </ul>
