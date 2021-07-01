@@ -32,3 +32,16 @@ The advantages of this approach are :
   <li>Regular updates about queue's status to user</li>
   </ul>
 </p>
+
+<h2>Working</h2>
+
+The whole procedure can be explained in five steps.
+<ul>
+  <li>Sign-up or sign-in by the user.</li>
+  <li>The home screen displays a list of insitutions and shops nearby along with the available token for booking a spot in the queue. The user can join a queue as appropriate.</li>
+  <li> Once the booking is confirmed, the user is notified about the allotted token and the expected waiting time.</li>
+  <li> As time passes, the queue is updated in real-time and the user is updated constantly about the queue's status.</li>
+  <li> The user is reminded to visit the location once the turn is about to come.</li>
+  </ul>
+  
+
