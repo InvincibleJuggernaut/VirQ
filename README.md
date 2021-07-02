@@ -49,14 +49,16 @@ The whole procedure can be explained in five steps:
 <p align="center">
 <table>
   <tr>
-  <td><img src="Assets/GIFs/View.gif"></td>
-  <td><img src="Assets/GIFs/Join_a_queue_a.gif"></td>
-  <td><img src="Assets/GIFs/Reminder.gif"></td>
+  <td><img src="Assets/GIFs/View.gif" height="375" width="550"></td>
+  <td><img src="Assets/GIFs/Join_a_queue_a.gif" height="375" width="550"></td>
+  <td><img src="Assets/GIFs/Join_a_queue_b.gif" height="375" width="525"></td>
+  <td><img src="Assets/GIFs/Reminder.gif" height="375" width="550"></td>
   </tr>
   
   <tr>
   <td><p align="center">Viewing details of a queue</p></td>
   <td><p align="center">Joining a queue</p></td>
+  <td><p align="center">Joining when the queue was not previously empty</p></td>
   <td><p align="center">Reminder about the turn</p></td>
   </tr>
 </table>
