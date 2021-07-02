@@ -43,7 +43,19 @@ The whole procedure can be explained in five steps:
   <li> As time passes, the queue is updated in real-time and the user is updated constantly about the queue's status.</li>
   <li> The user is reminded to visit the location once the turn is about to come.</li>
   </ul>
-  
+
+<h2>Demo</h2>
+
+<p align="center">
+<table>
+  <tr>
+  <td><img src="Assets/GIFs/View.gif"></td>
+  <td><img src="Assets/GIFs/Join_a_queue_a.gif"></td>
+  <td><img src="Assets/GIFs/Reminder.gif"></td>
+  </tr>
+</table>
+</p>
+
 <h2>Tools</h2>
 
 <ul>
