@@ -53,6 +53,12 @@ The whole procedure can be explained in five steps:
   <td><img src="Assets/GIFs/Join_a_queue_a.gif"></td>
   <td><img src="Assets/GIFs/Reminder.gif"></td>
   </tr>
+  
+  <tr>
+  <td><p align="center">Viewing details of a queue</p></td>
+  <td><p align="center">Joining a queue</p></td>
+  <td><p align="center">Reminder about the turn</p></td>
+  </tr>
 </table>
 </p>
 
