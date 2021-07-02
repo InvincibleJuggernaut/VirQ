@@ -51,8 +51,8 @@ The whole procedure can be explained in five steps:
   <tr>
   <td><img src="Assets/GIFs/View.gif"></td>
   <td><img src="Assets/GIFs/Join_a_queue_a.gif"></td>
-  <td><img src="Assets/GIFs/Join_a_queue_b.gif" height="325" width="450"></td>
-  <td><img src="Assets/GIFs/Reminder.gif" height="325" width="450"></td>
+  <td><img src="Assets/GIFs/Join_a_queue_b.gif"></td>
+  <td><img src="Assets/GIFs/Reminder.gif"></td>
   </tr>
   
   <tr>
