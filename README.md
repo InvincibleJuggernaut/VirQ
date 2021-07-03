@@ -70,3 +70,7 @@ The whole procedure can be explained in five steps:
   <li> Flutter: 1.22.6 (stable)</li>
   <li> Dart: 2.10.5</li>
   </ul>
+
+<h2>License</h2>
+
+<a href="LICENSE">GPLv3</a>
