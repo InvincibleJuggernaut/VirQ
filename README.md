@@ -2,6 +2,16 @@
 <h1 align="center">VirQ</h1>
 
 <p align="center">
+  <a href="">
+    <img src="https://img.shields.io/badge/Platform-Android-purple">
+  </a>
+    <a href="LICENSE">
+    <img src="https://img.shields.io/badge/License-GPLv3-brightgreen.svg" height="20">
+  </a>
+  </p>
+
+
+<p align="center">
 <img src="Assets/View_section.png" width="272" height="493"><img src="Assets/Poster.png" width="252" height="493"></p>
 
 
