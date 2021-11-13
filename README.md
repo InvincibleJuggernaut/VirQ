@@ -19,7 +19,7 @@
 
 <p align="left"> VirQ is a solution aimed at resolving issues related to the conventional physical queues that are often observed at various public institutions, hospitals/clinics, ATMs and grocery/general stores.</p>
 
-<p> Physcial queues evolved as a way to maintain priority order and integrity. Despite this, there are no gurantees about the integrity beign maintained since people often find ways/excuses to jump queues.</p>
+<p> Physcial queues evolved as a way to maintain priority order and integrity. Despite this, there are no guarantees about the integrity being maintained since people often find ways/excuses to jump queues.</p>
 <p>
 Some common problems associated with the conventional physical queues are :
 <ul>
